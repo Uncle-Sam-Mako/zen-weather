@@ -94,6 +94,29 @@ body {
     gap: 10px;
 }
 
+.weather_item{
+    flex-shrink: 0;
+    font-size: small;
+    width: 80px;
+    background: rgb(255 255 255 / 23%);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(2px);
+}
+
+.weather_item img {
+    width: 40px;
+    margin: 10px auto;
+}
+
+.weather_item .temperature {
+    font-weight: bold;
+}
+
+
+/* ------Scrollbar stylizing------- */
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -115,23 +138,3 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
-
-.weather_item{
-    flex-shrink: 0;
-    font-size: small;
-    width: 80px;
-    background: rgb(255 255 255 / 23%);
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    backdrop-filter: blur(2px);
-}
-
-.weather_item img {
-    width: 40px;
-    margin: 10px auto;
-}
-
-.weather_item .temperature {
-    font-weight: bold;
-}
