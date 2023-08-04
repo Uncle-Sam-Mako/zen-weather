@@ -1,5 +1,41 @@
-
+@import "./--variables.scss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+
+
+/*----Set color theme------*/
+
+//Light Mode
+html[data-theme="light"] {
+    .weather_card {
+        @include lightStyle;
+        .weather_item {
+            background: transparentize($color: $darkColor, $amount: 0.9)
+        }
+    }
+    .temp_hour .hour {
+        background: rgba(37, 52, 85, 0.151);
+        border: 1px solid rgba(22, 38, 68, 0.281);
+    }
+}
+
+//Dark Mode
+html[data-theme="dark"] {
+    .weather_card {
+        @include darkStyle;
+        .weather_item {
+            background: transparentize($color: $lightColor, $amount: 0.9)
+        }
+    }
+
+    .temp_hour .hour {
+        background: rgba(209, 209, 209, 0.151);
+        border: 1px solid rgba(209, 209, 209, 0.281);
+    }
+}
+
+
 
 * {
     box-sizing: border-box;
@@ -13,22 +49,18 @@ body {
     margin: 0px;
     width: 500px;
     min-height: 400px;
-    background: #282828;
-    color: white;
-    background: url('../../assets/img/rainy.jpg') no-repeat;
-    background-size: cover;
     z-index: 1;
 
-    & ::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background: linear-gradient(rgba(0, 0, 0, 0.034) 50%, rgba(0, 0, 0, 0.231));
-        z-index: -1;
-    }
+    // & ::before {
+    //     content: "";
+    //     position: absolute;
+    //     width: 100%;
+    //     height: 100%;
+    //     top: 0;
+    //     left: 0;
+    //     background: linear-gradient(rgba(0, 0, 0, 0.034) 50%, rgba(0, 0, 0, 0.231));
+    //     z-index: -1;
+    // }
 }
 
 .weather_card_wrapper {
@@ -75,6 +107,10 @@ body {
             font-size: 2em;
             font-weight: bold;
             margin-bottom: 10px; 
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(1px);
         }
     }
 }
@@ -148,3 +184,8 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
+
+
+
+
+  
