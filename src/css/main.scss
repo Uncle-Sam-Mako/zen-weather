@@ -1,0 +1,149 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.weather_card {
+    position: relative;
+    margin: 0px;
+    width: 500px;
+    min-height: 400px;
+    background: #282828;
+    color: white;
+    background: url('../../assets/img/rainy.jpg') no-repeat;
+    background-size: cover;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.034) 50%, rgba(0, 0, 0, 0.231));
+        z-index: -1;
+    }
+}
+
+.weather_card_wrapper {
+    margin: 0px;
+    padding: 30px 50px;
+    display: grid;
+    grid-template-rows: 5fr 5fr;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    .temp {
+        font-size: 7em;
+        font-weight: 500;
+        text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.432);
+
+        .temp_hour {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .hour {
+                font-size: 2em;
+                font-weight: bold;
+                margin-bottom: 10px; 
+             }
+        }
+    }
+}
+
+.now_weather-infos {
+    display: grid;
+    grid-template-rows: 2fr 7fr 2fr;
+
+    .cloud_date {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+
+        p {
+            font-size: small;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.199);
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+    }
+}
+
+.hourly_daily_weather_infos {
+    width: 100%;
+    overflow: hidden;
+
+    .pagination {
+        margin-bottom: 10px;
+
+        .pagination_link {
+            color: white;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+    }
+
+    .weather_items_container {
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px 0;
+        display: flex;
+        gap: 10px;
+
+        .weather_item {
+            flex-shrink: 0;
+            font-size: small;
+            width: 80px;
+            background: rgb(255 255 255 / 23%);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(2px);
+
+            .temperature {
+                font-weight: bold;
+            }
+
+            img {
+                width: 40px;
+                margin: 10px auto;
+            }
+        }
+    }
+}
+
+
+
+/* ------Scrollbar stylizing------- */
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f121; 
+    border-radius: 20px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #363636; 
+    border-radius: 20px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
