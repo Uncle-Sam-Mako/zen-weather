@@ -19,7 +19,7 @@ body {
     background-size: cover;
     z-index: 1;
 
-    &::before {
+    & ::before {
         content: "";
         position: absolute;
         width: 100%;
@@ -40,26 +40,9 @@ body {
     height: 100%;
     z-index: 1;
 
-    .temp {
-        font-size: 7em;
-        font-weight: 500;
-        text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.432);
-
-        .temp_hour {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            .hour {
-                font-size: 2em;
-                font-weight: bold;
-                margin-bottom: 10px; 
-             }
-        }
-    }
 }
 
-.now_weather-infos {
+.now_weather_infos {
     display: grid;
     grid-template-rows: 2fr 7fr 2fr;
 
@@ -74,6 +57,24 @@ body {
             background: rgba(255, 255, 255, 0.199);
             padding: 5px 10px;
             border-radius: 15px;
+        }
+    }
+
+    .temp_hour {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .temp {
+            font-size: 7em;
+            font-weight: 500;
+            text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.432);
+        }
+
+        .hour {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px; 
         }
     }
 }
@@ -133,7 +134,7 @@ body {
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f121; 
+    background: rgba(242, 242, 242, 0.129); 
     border-radius: 20px;
   }
    
