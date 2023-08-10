@@ -26,7 +26,7 @@ const currentWeather = document.getElementById('current_weather') ;
 
 const url = 'http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a6485330230408&q=London&aqi=no'
 
-axios.get('http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a6485330230408&q=London&aqi=no')
+axios.get('http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a6485330230408&q=Melbourne&aqi=no')
 .then(response => {
     
     const location = response.data.location;
@@ -40,7 +40,10 @@ axios.get('http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a648533
     currentWeather.querySelector('.temp_hour .temp').textContent = `${parseInt(weather.temp_c)}°`;
 
     currentWeather.querySelector('.condition').textContent = condition.text
-    currentWeather.querySelector('.cloud_icon').src = condition.icon
+    currentWeather.querySelector('.cloud_icon img').src = condition.icon
+
+    currentWeather.querySelector('.humidity .value').textContent = `${weather.humidity}%`;
+    currentWeather.querySelector('.wind .value').textContent = `${weather.wind_mph}mph`;
 
     console.log(response.data)
 })

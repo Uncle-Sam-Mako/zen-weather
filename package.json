@@ -99,5 +99,6 @@
     "start": "webpack"
   },
   "author": "uncle-sam-mako",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": "https://github.com/Uncle-Sam-Mako/zen-weather.git"
 }
