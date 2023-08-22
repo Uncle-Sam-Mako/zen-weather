@@ -1,82 +1,78 @@
-import "./css/main.scss"
-import axios from 'axios';
+import "./css/main.scss"; // Import the main SCSS file for styling
+import axios from 'axios'; // Import the Axios library for making HTTP requests
 
-
+// Function to format a given datetime
 function formatDateTime(datetime) {
     const inputDate = datetime;
+    const dateObject = new Date(inputDate); // Convert input date string to a Date object
 
-    // Convertir la chaîne de date en objet Date
-    const dateObject = new Date(inputDate);
-
-    // Obtenir le jour de la semaine et le mois sous forme abrégée
+    // Define options for formatting date and time
     const options = { weekday: 'short', month: 'short', day: 'numeric' };
+
+    // Format the date using Intl.DateTimeFormat
     const formattedDate = new Intl.DateTimeFormat('en-US', options).format(dateObject);
 
-    // Obtenir l'heure et les minutes
+    // Get hours and minutes from the date object
     const hours = dateObject.getHours();
     const minutes = dateObject.getMinutes();
 
-    // Formater l'heure
+    // Format the time as HH:MM
     const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 
-    return [formattedDate, formattedTime]
+    return [formattedDate, formattedTime]; // Return formatted date and time
 }
 
-
+// Select the container for hourly weather and the template for a weather item
 const hourly_weather_container = document.querySelector('.weather_items_container');
-    const hourly_weather_template = hourly_weather_container.querySelector('.weather_item_template');
-    
-    for (let i = 0; i < 6; i++) {
-        hourly_weather_container.append(hourly_weather_template.content.cloneNode(true));
-    }
+const hourly_weather_template = hourly_weather_container.querySelector('.weather_item_template');
 
+// Create six weather items using the template and append them to the container
+for (let i = 0; i < 6; i++) {
+    hourly_weather_container.append(hourly_weather_template.content.cloneNode(true));
+}
 
-const currentWeather = document.getElementById('current_weather') ;
-const forecast_url = 'http://api.weatherapi.com/v1/forecast.json?key=f9de0c04c1bc48c2a6485330230408&q=London&days=1&aqi=no&alerts=no'
-const current_url = 'http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a6485330230408&q=London&aqi=no'
+// Select the element for displaying current weather
+const currentWeather = document.getElementById('current_weather');
 
+// URLs for weather data
+const forecast_url = 'http://api.weatherapi.com/v1/forecast.json?key=f9de0c04c1bc48c2a6485330230408&q=London&days=1&aqi=no&alerts=no';
+
+// Function to fetch and display current weather information
 function getCurrentInfos() {
     axios.get(forecast_url)
     .then(response => {
-        
+        // Extract relevant data from the API response
         const location = response.data.location;
         const weather = response.data.current;
         const condition = weather.condition;
         const hourly_weather = response.data.forecast.forecastday[0].hour;
 
+        // Update DOM elements with weather data
         currentWeather.querySelector('.location').textContent = `${location.name}, ${location.country}`;
         currentWeather.querySelector('.localdate').textContent = formatDateTime(location.localtime)[0];
         currentWeather.querySelector('.temp_hour .hour').textContent = formatDateTime(location.localtime)[1];
-
         currentWeather.querySelector('.temp_hour .temp').textContent = `${parseInt(weather.temp_c)}°`;
-
-        currentWeather.querySelector('.condition').textContent = condition.text
-        currentWeather.querySelector('.cloud_icon img').src = condition.icon
-
+        currentWeather.querySelector('.condition').textContent = condition.text;
+        currentWeather.querySelector('.cloud_icon img').src = condition.icon;
         currentWeather.querySelector('.humidity .value').textContent = `${weather.humidity}%`;
         currentWeather.querySelector('.wind .value').textContent = `${weather.wind_mph}mph`;
 
+        // Clear previous hourly weather container
         hourly_weather_container.innerHTML = "";
 
-        for(const item of hourly_weather) {
+        // Iterate through hourly weather data and populate the container
+        for (const item of hourly_weather) {
             const weather_item = hourly_weather_template.content.cloneNode(true);
-            
             weather_item.querySelector('.time').innerHTML = item.time.slice(-5);
             weather_item.querySelector('.cloud_icon img').src = item.condition.icon;
             weather_item.querySelector('.temperature').innerHTML = `${item.temp_c}°C`;
-
             hourly_weather_container.appendChild(weather_item);
         }
 
-        console.log(hourly_weather)
     })
     .catch(error => {
-        console.error(error)
-    })
+        console.error(error); // Log any errors that occur during the API request
+    });
 }
 
-
-
-
-
-getCurrentInfos()
+getCurrentInfos(); // Call the function to fetch and display weather information
