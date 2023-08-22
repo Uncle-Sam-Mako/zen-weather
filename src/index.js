@@ -23,30 +23,35 @@ function formatDateTime(datetime) {
 }
 
 const currentWeather = document.getElementById('current_weather') ;
+const forecast_url = 'http://api.weatherapi.com/v1/forecast.json?key=f9de0c04c1bc48c2a6485330230408&q=London&days=1&aqi=no&alerts=no'
+const current_url = 'http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a6485330230408&q=London&aqi=no'
 
-const url = 'http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a6485330230408&q=London&aqi=no'
+function getCurrentInfos() {
+    axios.get(current_url)
+    .then(response => {
+        
+        const location = response.data.location;
+        const weather = response.data.current;
+        const condition = weather.condition;
 
-axios.get('http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a6485330230408&q=Melbourne&aqi=no')
-.then(response => {
-    
-    const location = response.data.location;
-    const weather = response.data.current;
-    const condition = weather.condition;
+        currentWeather.querySelector('.location').textContent = `${location.name}, ${location.country}`;
+        currentWeather.querySelector('.localdate').textContent = formatDateTime(location.localtime)[0];
+        currentWeather.querySelector('.temp_hour .hour').textContent = formatDateTime(location.localtime)[1];
 
-    currentWeather.querySelector('.location').textContent = `${location.name}, ${location.country}`;
-    currentWeather.querySelector('.localdate').textContent = formatDateTime(location.localtime)[0];
-    currentWeather.querySelector('.temp_hour .hour').textContent = formatDateTime(location.localtime)[1];
+        currentWeather.querySelector('.temp_hour .temp').textContent = `${parseInt(weather.temp_c)}°`;
 
-    currentWeather.querySelector('.temp_hour .temp').textContent = `${parseInt(weather.temp_c)}°`;
+        currentWeather.querySelector('.condition').textContent = condition.text
+        currentWeather.querySelector('.cloud_icon img').src = condition.icon
 
-    currentWeather.querySelector('.condition').textContent = condition.text
-    currentWeather.querySelector('.cloud_icon img').src = condition.icon
+        currentWeather.querySelector('.humidity .value').textContent = `${weather.humidity}%`;
+        currentWeather.querySelector('.wind .value').textContent = `${weather.wind_mph}mph`;
 
-    currentWeather.querySelector('.humidity .value').textContent = `${weather.humidity}%`;
-    currentWeather.querySelector('.wind .value').textContent = `${weather.wind_mph}mph`;
+        console.log(response.data)
+    })
+    .catch(error => {
+        console.error(error)
+    })
+}
 
-    console.log(response.data)
-})
-.catch(error => {
-    console.error(error)
-})
+getCurrentInfos()
+

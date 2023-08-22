@@ -1,16 +1,14 @@
-
-$darkColor : #505c7b;
+$darkColor : #000000;
 $lightColor : #eeeeee;
 
 
 @mixin darkStyle {
     color: $lightColor;
     background-color: rgb(16 19 29);
-    background-image: radial-gradient(at 0% 0%, rgb(37 118 111) 0, transparent 52%), radial-gradient(at 52% 20%, rgb(233 30 179 / 24%) 0, transparent 52%);
+    background-image: radial-gradient(at 0% 0%, rgba(37, 118, 111, 0.288) 0, transparent 52%), radial-gradient(at 52% 20%, rgba(233, 30, 179, 0.116) 0, transparent 52%);
 }
 
 @mixin lightStyle {
     background-color: rgb(255, 255, 255);
-    background-image: radial-gradient(at 0% 0%, rgb(147, 197, 253) 0, transparent 52%), radial-gradient(at 52% 20%, rgb(254, 205, 211) 0, transparent 52%);
-    color: $darkColor;
+    background-image: radial-gradient(at 0% 0%, rgb(37 118 111 / 32%) 0, transparent 52%), radial-gradient(at 52% 20%, rgba(233, 30, 179, 0.116) 0, transparent 52%);
 }
