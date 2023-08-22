@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zen Weather</title>
-    <link rel="stylesheet" href="./src/css/style.css">
 </head>
 <style>
     
@@ -34,41 +33,17 @@
                 <div class="future_weather_infos">
                     
                     <div class="weather_items_container">
-                        <div class="weather_item">
-                            <p class="day_or_time">Today</p>
-                            <span class="cloud_icon">
-                                <img src="./assets/img/cloud-rain.svg" alt="">
-                            </span>
-                            <p class="temperature">25°C</p>
-                        </div>
-                        <div class="weather_item">
-                            <p class="day_or_time">Today</p>
-                            <span class="cloud_icon">
-                                <img src="./assets/img/cloud-rain.svg" alt="">
-                            </span>
-                            <p class="temperature">25°C</p>
-                        </div>
-                        <div class="weather_item">
-                            <p class="day_or_time">Today</p>
-                            <span class="cloud_icon">
-                                <img src="./assets/img/cloud-rain.svg" alt="">
-                            </span>
-                            <p class="temperature">25°C</p>
-                        </div>
-                        <div class="weather_item">
-                            <p class="day_or_time">Today</p>
-                            <span class="cloud_icon">
-                                <img src="./assets/img/cloud-rain.svg" alt="">
-                            </span>
-                            <p class="temperature">25°C</p>
-                        </div>
-                        <div class="weather_item">
-                            <p class="day_or_time">Today</p>
-                            <span class="cloud_icon">
-                                <img src="./assets/img/cloud-rain.svg" alt="">
-                            </span>
-                            <p class="temperature">25°C</p>
-                        </div>
+                        
+                        <template class="weather_item_template">
+                            <div class="weather_item">
+                                <p class="time"></p>
+                                <span class="cloud_icon">
+                                    <img src="">
+                                </span>
+                                <p class="temperature"></p>
+                            </div> 
+                        </template>
+                        
                     </div>
                 </div>
             </div>

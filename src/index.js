@@ -22,17 +22,27 @@ function formatDateTime(datetime) {
     return [formattedDate, formattedTime]
 }
 
+
+const hourly_weather_container = document.querySelector('.weather_items_container');
+    const hourly_weather_template = hourly_weather_container.querySelector('.weather_item_template');
+    
+    for (let i = 0; i < 6; i++) {
+        hourly_weather_container.append(hourly_weather_template.content.cloneNode(true));
+    }
+
+
 const currentWeather = document.getElementById('current_weather') ;
 const forecast_url = 'http://api.weatherapi.com/v1/forecast.json?key=f9de0c04c1bc48c2a6485330230408&q=London&days=1&aqi=no&alerts=no'
 const current_url = 'http://api.weatherapi.com/v1/current.json?key=f9de0c04c1bc48c2a6485330230408&q=London&aqi=no'
 
 function getCurrentInfos() {
-    axios.get(current_url)
+    axios.get(forecast_url)
     .then(response => {
         
         const location = response.data.location;
         const weather = response.data.current;
         const condition = weather.condition;
+        const hourly_weather = response.data.forecast.forecastday[0].hour;
 
         currentWeather.querySelector('.location').textContent = `${location.name}, ${location.country}`;
         currentWeather.querySelector('.localdate').textContent = formatDateTime(location.localtime)[0];
@@ -46,12 +56,27 @@ function getCurrentInfos() {
         currentWeather.querySelector('.humidity .value').textContent = `${weather.humidity}%`;
         currentWeather.querySelector('.wind .value').textContent = `${weather.wind_mph}mph`;
 
-        console.log(response.data)
+        hourly_weather_container.innerHTML = "";
+
+        for(const item of hourly_weather) {
+            const weather_item = hourly_weather_template.content.cloneNode(true);
+            
+            weather_item.querySelector('.time').innerHTML = item.time.slice(-5);
+            weather_item.querySelector('.cloud_icon img').src = item.condition.icon;
+            weather_item.querySelector('.temperature').innerHTML = `${item.temp_c}°C`;
+
+            hourly_weather_container.appendChild(weather_item);
+        }
+
+        console.log(hourly_weather)
     })
     .catch(error => {
         console.error(error)
     })
 }
 
-getCurrentInfos()
 
+
+
+
+getCurrentInfos()
