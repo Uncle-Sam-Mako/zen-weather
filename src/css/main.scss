@@ -28,6 +28,9 @@ html[data-theme="dark"] {
             background: transparentize($color: $lightColor, $amount: 0.9)
         }
     }
+    .menu {
+        background: #10131d8e;
+    }
 
     .temp_hour .hour {
         background: rgba(209, 209, 209, 0.151);
@@ -154,13 +157,87 @@ body {
     display: block;
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 30%;
+    width: 70%;
     height: 100%;
-    background: red;
+    background: rgba(216, 216, 216, 0.369);
+    padding: 20px;
+    backdrop-filter: blur(20px);
+
+    .menu_option {
+        border-radius: 5px;
+        padding: 10px;
+        margin: 5px 0;
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        align-items: center;
+        cursor: pointer;
+        transition: all .3s ease-in;
+
+        &:hover {
+            background: rgb(0 0 0 / 20%);
+        }
+
+        .option_icon svg {
+            width: 15px;
+        }
+    
+    }
 }
 
+.dark_toggle_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
+    .switcher {
+        position: relative;
+        cursor: pointer;
+        display: block;
+        min-width: 34px;
+        outline: 0;
+        width: 34px;
+        z-index: 1;
+    
+        &:has(#dark_toggle:checked) {
+            #knob {
+                background-color: #ffb400;
+                transform: translate3d(18px,0,0);
+            }
+        }
+        #knob {
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,.4);
+            display: block;
+            height: 16px;
+            position: relative;
+            transition: transform linear 80ms,background-color linear 80ms;
+            width: 16px;
+        }
+        #bar {
+            background: rgb(108 108 108 / 27%);
+            border-radius: 8px;
+            height: 12px;
+            left: 3px;
+            position: absolute;
+            top: 2px;
+            transition: background-color linear 80ms;
+            width: 28px;
+            z-index: 0;
+        }
+        #dark_toggle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        
+        
+    }
+}
 
 
 
@@ -193,3 +270,4 @@ body {
 
 
  
+
