@@ -53,6 +53,7 @@ body {
     width: 500px;
     min-height: 400px;
     z-index: 1;
+    overflow: hidden;
 }
 
 .weather_card_wrapper {
@@ -342,3 +343,8 @@ body {
   
   }
   
+  .weather_card:has(#menu_check:checked) {
+    .menu {
+        transform: translateX(0%);
+    }
+  }
