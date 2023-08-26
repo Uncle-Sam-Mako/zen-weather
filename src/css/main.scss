@@ -107,6 +107,19 @@ body {
             backdrop-filter: blur(1px);
         }
     }
+
+    .location {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .change_location button {
+            background: transparent;
+            color: var(--main-text-color);
+            border: 1px solid var(--hover-color);
+            border-radius: 5px;
+        }
+    }
 }
 
 .future_weather_infos {

@@ -48,7 +48,7 @@ function getCurrentInfos() {
         const hourly_weather = response.data.forecast.forecastday[0].hour;
 
         // Update DOM elements with weather data
-        currentWeather.querySelector('.location').textContent = `${location.name}, ${location.country}`;
+        currentWeather.querySelector('.location .value').textContent = `${location.name}, ${location.country}`;
         currentWeather.querySelector('.localdate').textContent = formatDateTime(location.localtime)[0];
         currentWeather.querySelector('.temp_hour .hour').textContent = formatDateTime(location.localtime)[1];
         currentWeather.querySelector('.temp_hour .temp').textContent = `${parseInt(weather.temp_c)}°`;
