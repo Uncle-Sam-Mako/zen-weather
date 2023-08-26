@@ -1,5 +1,4 @@
 @import "./--variables.scss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
 
@@ -8,10 +7,11 @@
 
 //Light Mode
 html[data-theme="light"] {
+
     .weather_card {
         @include lightStyle;
         .weather_item {
-            background: transparentize($color: $darkColor, $amount: 0.9)
+            background: transparentize($color: $darkColor, $amount: 0.9);
         }
     }
     .temp_hour .hour {
@@ -25,15 +25,15 @@ html[data-theme="dark"] {
     .weather_card {
         @include darkStyle;
         .weather_item {
-            background: transparentize($color: $lightColor, $amount: 0.9)
+            background: transparentize($color: $lightColor, $amount: 0.9);
         }
     }
     .menu {
-        background: #10131d8e;
+        background: rgba(16, 19, 29, 0.557);
     }
 
     .temp_hour .hour {
-        background: rgba(209, 209, 209, 0.151);
+        background: var(--hover-color);
         border: 1px solid rgba(209, 209, 209, 0.281);
     }
 }
@@ -44,7 +44,8 @@ html[data-theme="dark"] {
     box-sizing: border-box;
 }
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: $font-family;
+    color: var(--main-text-color);
 }
 
 .weather_card {
@@ -79,7 +80,7 @@ body {
         p {
             font-size: small;
             font-weight: bold;
-            background: rgba(255, 255, 255, 0.199);
+            background: var(--hover-color);
             padding: 5px 10px;
             border-radius: 15px;
         }
@@ -93,7 +94,7 @@ body {
         .temp {
             font-size: 6.5em;
             font-weight: 600;
-            text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.432);
+            text-shadow: 0px 3px 5px var(--shadow);
         }
 
         .hour {
@@ -112,16 +113,6 @@ body {
     width: 100%;
     overflow: hidden;
 
-    .pagination {
-        margin-bottom: 10px;
-
-        .pagination_link {
-            color: white;
-            font-weight: bold;
-            margin-right: 20px;
-        }
-    }
-
     .weather_items_container {
         width: 100%;
         overflow-x: auto;
@@ -134,7 +125,7 @@ body {
             font-size: small;
             width: 80px;
             min-height: 115px;
-            background: rgb(255 255 255 / 23%);
+            background: var(--hover-color);
             padding: 10px;
             border-radius: 10px;
             text-align: center;
@@ -179,11 +170,12 @@ body {
         transition: all .3s ease-in;
 
         &:hover {
-            background: rgb(0 0 0 / 20%);
+            background: var(--hover-color);
         }
 
         .option_icon svg {
             width: 15px;
+            fill: var(--main-text-color);
         }
     
     }
@@ -210,9 +202,9 @@ body {
             }
         }
         #knob {
-            background-color: white;
+            background-color: $lightColor;
             border-radius: 50%;
-            box-shadow: 0 1px 3px 0 rgba(0,0,0,.4);
+            box-shadow: 0 1px 3px 0 var(--shadow);
             display: block;
             height: 16px;
             position: relative;
@@ -243,6 +235,69 @@ body {
     }
 }
 
+/**--------Menu button--------**/
+
+
+.weather_card:has(#menu_check:checked) {
+    .menu {
+        transform: translateX(0%);
+    }
+}
+
+
+.menu_btn_container {
+    width: 30px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 99;
+
+    label{
+        display:flex;
+        flex-direction:column;
+        width:30px;
+        cursor:pointer;
+
+        span{
+            background: var(--main-text-color);
+            border-radius:10px;
+            height:3px;
+            margin: 3px 0;
+            transition: .4s  cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            
+            &:nth-of-type(1){
+                width:50%;
+            }
+            &:nth-of-type(2){
+                width:100%;
+            }
+            &:nth-of-type(3){
+                width:75%;
+            }
+        }
+    }
+
+    input[type="checkbox"]{
+        display:none;
+    }
+
+    input[type="checkbox"]:checked ~ span {
+        &:nth-of-type(1){
+            transform-origin:bottom;
+            transform:rotatez(45deg) translate(3px,0px);
+        }
+        &:nth-of-type(2){
+            transform-origin:top;
+            transform:rotatez(-45deg);
+        }
+        &:nth-of-type(3){
+            transform-origin:bottom;
+            width:50%;
+            transform: translate(13px, -5px) rotatez(45deg);
+        }
+    }
+}
+ 
 
 
 /* ------Scrollbar stylizing------- */
@@ -272,79 +327,3 @@ body {
 
 
 
-.menu_btn_container {
-    width: 30px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 99;
-}
- 
-
-
-
-  .menu_btn_container label{
-   display:flex;
-    flex-direction:column;
-    width:30px;
-    cursor:pointer;
-    z-index: 99;
-  }
-  
-  .menu_btn_container label span{
-    background: #252525;
-    border-radius:10px;
-    height:3px;
-    margin: 3px 0;
-    transition: .4s  cubic-bezier(0.68, -0.6, 0.32, 1.6);
-  
-  }
-  
-  
-  .menu_btn_container span:nth-of-type(1){
-    width:50%;
-    
-  }
-  
-  .menu_btn_container span:nth-of-type(2){
-    width:100%;
-  }
-  
-  
-  .menu_btn_container span:nth-of-type(3){
-    width:75%;
-   
-  }
-  
-  
-  .menu_btn_container input[type="checkbox"]{
-    display:none;
-  }
-  
-  
-  .menu_btn_container  input[type="checkbox"]:checked ~ span:nth-of-type(1){
-    transform-origin:bottom;
-    transform:rotatez(45deg) translate(3px,0px)
-  }
-  
-  
-  .menu_btn_container input[type="checkbox"]:checked ~ span:nth-of-type(2){
-    
-    transform-origin:top;
-    transform:rotatez(-45deg)
-  }
-  
-  
-  .menu_btn_container input[type="checkbox"]:checked ~ span:nth-of-type(3){
-    
-    transform-origin:bottom;
-    width:50%;
-    transform: translate(13px, -5px) rotatez(45deg)
-  
-  }
-  
-  .weather_card:has(#menu_check:checked) {
-    .menu {
-        transform: translateX(0%);
-    }
-  }
