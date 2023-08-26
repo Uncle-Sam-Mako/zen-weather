@@ -76,3 +76,30 @@ function getCurrentInfos() {
 }
 
 getCurrentInfos(); // Call the function to fetch and display weather information
+
+
+
+// Check if 'theme' data exists in localStorage
+if (!('theme' in localStorage)) {
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    localStorage.theme = prefersDarkMode ? 'dark' : 'light';
+}
+
+// Apply the stored theme to the root HTML element
+document.documentElement.setAttribute('data-theme', localStorage.theme);
+
+// Get the reference to the light/dark mode toggle button
+const lightDarkBtn = document.getElementById('dark_toggle');
+
+// Set the initial checked state of the toggle based on the stored theme
+lightDarkBtn.checked = localStorage.theme === 'dark';
+
+// Listen for changes in the light/dark mode toggle button
+lightDarkBtn.addEventListener('change', () => {
+    // Toggle between light and dark themes
+    const newTheme = lightDarkBtn.checked ? 'dark' : 'light';
+    
+    // Update the theme attribute and store the new theme setting in local storage
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.theme = newTheme;
+});
