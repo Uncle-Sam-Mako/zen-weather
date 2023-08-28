@@ -352,6 +352,51 @@ body {
         top: 0;
         box-shadow: 0 1px 3px 0 var(--shadow);
     }
+    .saved_location_title {
+        padding: 15px;
+    }
+    
+    .saved_location_list li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid var(--hover-color);
+        transition: background .3s ease-out;
+        &:hover {
+            background: var(--hover-color);
+        }
+    }
+    .location_infos span {
+        display: block;
+
+        &.location_town {
+            font-weight: bold;
+        }
+        &.location_country {
+            font-size: small;
+        }
+    }
+    button.delete_location {
+        background: transparent;
+        width: 35px;
+        height: 35px;
+        padding: 0;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background .3s ease-out;
+
+        &:hover {
+            background: var(--hover-color);
+        }
+
+        svg {
+            width: 15px;
+        }
+    }
 }
 
 /* ------Scrollbar stylizing------- */
