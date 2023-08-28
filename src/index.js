@@ -75,7 +75,7 @@ function getCurrentInfos() {
     });
 }
 
-getCurrentInfos(); // Call the function to fetch and display weather information
+//getCurrentInfos();  Call the function to fetch and display weather information
 
 
 

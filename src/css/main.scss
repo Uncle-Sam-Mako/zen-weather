@@ -118,6 +118,13 @@ body {
             color: var(--main-text-color);
             border: 1px solid var(--hover-color);
             border-radius: 5px;
+            cursor: pointer;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                background: var(--main-text-color);
+                color: var(--main-bg-color);
+            }
         }
     }
 }
@@ -262,7 +269,7 @@ body {
     width: 30px;
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 50px;
     z-index: 99;
 
     label{
@@ -311,7 +318,41 @@ body {
     }
 }
  
+.change_location_modal {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 90%;
+    height: 90%;
+    transform: translateX(5%);
+    background: var(--main-bg-color);
+    border-radius: 10px;
+    z-index: 199;
 
+    .wrapper {
+        padding: 20px;
+    }
+
+    .map_icon {
+        width: 13px;
+        z-index: 100;
+        position: absolute;
+        left: 36px;
+        top: 27px;
+        fill: gray;
+    }
+
+    .change_location_input {
+        width: 100%;
+        padding: 10px;
+        padding-left: 50px;
+        border: none;
+        border-radius: 5px;
+        left: 0;
+        top: 0;
+        box-shadow: 0 1px 3px 0 var(--shadow);
+    }
+}
 
 /* ------Scrollbar stylizing------- */
 
@@ -337,6 +378,4 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
-
-
 
