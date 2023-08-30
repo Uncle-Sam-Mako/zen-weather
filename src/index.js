@@ -34,11 +34,13 @@ for (let i = 0; i < 6; i++) {
 // Select the element for displaying current weather
 const currentWeather = document.getElementById('current_weather');
 
-// URLs for weather data
-const forecast_url = 'http://api.weatherapi.com/v1/forecast.json?key=f9de0c04c1bc48c2a6485330230408&q=London&days=1&aqi=no&alerts=no';
 
 // Function to fetch and display current weather information
-function getCurrentInfos() {
+function getCurrentInfos(location) {
+
+    // URLs for weather data
+    const forecast_url = `http://api.weatherapi.com/v1/forecast.json?key=f9de0c04c1bc48c2a6485330230408&q=${location}&days=1&aqi=no&alerts=no`;
+
     axios.get(forecast_url)
     .then(response => {
         // Extract relevant data from the API response
@@ -76,6 +78,28 @@ function getCurrentInfos() {
 }
 
 //getCurrentInfos();  Call the function to fetch and display weather information
+
+
+const change_location_form = document.getElementById('change_location_form');
+
+change_location_form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const location = change_location_form.querySelector('input').value;
+    getCurrentInfos(location)
+})
+
+const close_change_location_modal = document.querySelector('.close_location_modal'),
+change_location_modal = document.querySelector('.change_location_modal');
+
+close_change_location_modal.addEventListener('click', () => {
+    change_location_modal.style.display = "none";
+})
+
+
+
+
+
+
 
 
 
