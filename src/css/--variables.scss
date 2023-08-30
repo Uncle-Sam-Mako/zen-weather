@@ -40,3 +40,20 @@ html[data-theme="dark"]{
     background-color: var(--main-bg-color);
     background-image: radial-gradient(at 0% 0%, rgb(37 118 111 / 32%) 0, transparent 52%), radial-gradient(at 52% 20%, rgba(233, 30, 179, 0.116) 0, transparent 52%);
 }
+
+@mixin closeBtn {
+    background: transparent;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background .3s ease-out;
+
+    &:hover {
+        background: var(--hover-color);
+    }
+}

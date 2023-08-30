@@ -340,6 +340,18 @@ body {
     transform: translateX(5%);
     z-index: 199;
 
+    .close_location_modal {
+        @include closeBtn;
+        position: absolute;
+        top: 7.5px;
+        right: 15px;
+
+        svg {
+            width: 15px;
+            fill : var(--main-text-color)
+        }
+    }
+
     .wrapper {
         padding: 20px;
     }
@@ -415,20 +427,7 @@ body {
         }
     }
     button.delete_location {
-        background: transparent;
-        width: 35px;
-        height: 35px;
-        padding: 0;
-        border-radius: 50%;
-        border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background .3s ease-out;
-
-        &:hover {
-            background: var(--hover-color);
-        }
+        @include closeBtn;
 
         svg {
             width: 10px;
