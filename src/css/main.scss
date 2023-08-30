@@ -336,6 +336,7 @@ body {
     left: 0;
     width: 90%;
     height: 90%;
+    padding-top: 30px;
     transform: translateX(5%);
     z-index: 199;
 
@@ -343,27 +344,33 @@ body {
         padding: 20px;
     }
 
-    .map_icon {
-        width: 13px;
-        z-index: 100;
-        position: absolute;
-        left: 36px;
-        top: 27px;
-        fill: gray;
+    .change_location_input_container {
+        position: relative;
+
+        .map_icon {
+            width: 13px;
+            z-index: 100;
+            position: absolute;
+            left: 10px;
+            top: 25%;
+            fill: #aaaaaa;
+        }
+
+        .change_location_input {
+            width: 100%;
+            padding: 10px;
+            padding-left: 50px;
+            border: none;
+            border-radius: 5px;
+            left: 0;
+            top: 0;
+            box-shadow: 0 1px 3px 0 var(--shadow);
+        }
     }
 
-    .change_location_input {
-        width: 100%;
-        padding: 10px;
-        padding-left: 50px;
-        border: none;
-        border-radius: 5px;
-        left: 0;
-        top: 0;
-        box-shadow: 0 1px 3px 0 var(--shadow);
-    }
+    
     .saved_location_title {
-        padding: 15px;
+        padding: 5px 15px;
     }
     
     .saved_location_list li {
