@@ -360,11 +360,31 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px;
+        padding-right: 15px;
         border-bottom: 1px solid var(--hover-color);
         transition: background .3s ease-out;
         &:hover {
             background: var(--hover-color);
+        }
+        &:has(input:checked) {
+            background: var(--hover-color);
+
+            button.delete_location {
+                display: none;
+            }
+        }
+        label {
+            width: 90%;
+            position: relative;
+            padding: 15px;
+
+            input {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-25%);
+                visibility: hidden;
+            }
         }
     }
     .location_infos span {
