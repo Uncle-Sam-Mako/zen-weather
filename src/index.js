@@ -1,10 +1,10 @@
 import "./css/main.scss"; // Import the main SCSS file for styling
 import axios from 'axios'; // Import the Axios library for making HTTP requests
 
+
+
 // Function to format a given datetime
 function formatDateTime(datetime) {
-
-
 
     const inputDate = datetime;
     const dateObject = new Date(inputDate); // Convert input date string to a Date object
@@ -25,20 +25,6 @@ function formatDateTime(datetime) {
     return [formattedDate, formattedTime]; // Return formatted date and time
 }
 
-// const change_location_form = document.getElementById('change_location_form');
-
-// change_location_form.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const location = change_location_form.querySelector('input').value;
-//     getCurrentInfos(location)
-// })
-
-// const close_change_location_modal = document.querySelector('.close_location_modal'),
-// change_location_modal = document.querySelector('.change_location_modal');
-
-// close_change_location_modal.addEventListener('click', () => {
-//     change_location_modal.style.display = "none";
-// })
 
 class WeatherApp {
     constructor(apiKey) {
@@ -92,18 +78,36 @@ class WeatherApp {
             this.hourlyWeatherContainer.appendChild(weatherItem);
         }
     }
-
-    // formatDateTime(dateTime) {
-    //     // Implement your datetime formatting logic here
-    // }
 }
 
 const apiKey = 'f9de0c04c1bc48c2a6485330230408';
 const weatherApp = new WeatherApp(apiKey);
 
 // Call the fetchWeatherData method to get weather information
-weatherApp.fetchWeatherData('Bukavu');
+weatherApp.fetchWeatherData('Brazzaville');
 
+
+// const change_location_form = document.getElementById('change_location_form');
+
+// change_location_form.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const location = change_location_form.querySelector('input').value;
+//     getCurrentInfos(location)
+// })
+
+const close_change_location_modal = document.querySelector('.close_location_modal'),
+open_change_local_modal = document.querySelectorAll('.change_location_btn'),
+change_location_modal = document.querySelector('.change_location_modal');
+
+open_change_local_modal.forEach(e => {
+    e.addEventListener('click', () => {
+        change_location_modal.style.display = 'block';
+    })
+})
+
+close_change_location_modal.addEventListener('click', () => {
+    change_location_modal.style.display = "none";
+})
 
 
 
