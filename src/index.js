@@ -3,6 +3,9 @@ import axios from 'axios'; // Import the Axios library for making HTTP requests
 
 // Function to format a given datetime
 function formatDateTime(datetime) {
+
+
+
     const inputDate = datetime;
     const dateObject = new Date(inputDate); // Convert input date string to a Date object
 
@@ -22,79 +25,84 @@ function formatDateTime(datetime) {
     return [formattedDate, formattedTime]; // Return formatted date and time
 }
 
-// Select the container for hourly weather and the template for a weather item
-const hourly_weather_container = document.querySelector('.weather_items_container');
-const hourly_weather_template = hourly_weather_container.querySelector('.weather_item_template');
+// const change_location_form = document.getElementById('change_location_form');
 
-// Create six weather items using the template and append them to the container
-for (let i = 0; i < 6; i++) {
-    hourly_weather_container.append(hourly_weather_template.content.cloneNode(true));
-}
+// change_location_form.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const location = change_location_form.querySelector('input').value;
+//     getCurrentInfos(location)
+// })
 
-// Select the element for displaying current weather
-const currentWeather = document.getElementById('current_weather');
+// const close_change_location_modal = document.querySelector('.close_location_modal'),
+// change_location_modal = document.querySelector('.change_location_modal');
 
+// close_change_location_modal.addEventListener('click', () => {
+//     change_location_modal.style.display = "none";
+// })
 
-// Function to fetch and display current weather information
-function getCurrentInfos(location) {
+class WeatherApp {
+    constructor(apiKey) {
+        this.apiKey = apiKey;
+        this.forecastUrl = 'http://api.weatherapi.com/v1/forecast.json';
+        this.currentWeather = document.getElementById('current_weather');
+        this.hourlyWeatherContainer = document.querySelector('.weather_items_container');
+        this.hourlyWeatherTemplate = document.querySelector('.weather_item_template');
+    }
 
-    // URLs for weather data
-    const forecast_url = `http://api.weatherapi.com/v1/forecast.json?key=f9de0c04c1bc48c2a6485330230408&q=${location}&days=1&aqi=no&alerts=no`;
+    fetchWeatherData(location) {
+        const url = `${this.forecastUrl}?key=${this.apiKey}&q=${location}&days=1&aqi=no&alerts=no`;
 
-    axios.get(forecast_url)
-    .then(response => {
-        // Extract relevant data from the API response
-        const location = response.data.location;
-        const weather = response.data.current;
-        const condition = weather.condition;
-        const hourly_weather = response.data.forecast.forecastday[0].hour;
+        axios.get(url)
+            .then(response => {
+                const data = response.data;
+                this.updateCurrentWeather(data.location, data.current);
+                this.updateHourlyWeather(data.forecast.forecastday[0].hour);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
 
-        // Update DOM elements with weather data
-        currentWeather.querySelector('.location .value').textContent = `${location.name}, ${location.country}`;
-        currentWeather.querySelector('.localdate').textContent = formatDateTime(location.localtime)[0];
-        currentWeather.querySelector('.temp_hour .hour').textContent = formatDateTime(location.localtime)[1];
-        currentWeather.querySelector('.temp_hour .temp').textContent = `${parseInt(weather.temp_c)}°`;
-        currentWeather.querySelector('.condition').textContent = condition.text;
-        currentWeather.querySelector('.cloud_icon img').src = condition.icon;
-        currentWeather.querySelector('.humidity .value').textContent = `${weather.humidity}%`;
-        currentWeather.querySelector('.wind .value').textContent = `${weather.wind_mph}mph`;
+    updateCurrentWeather(location, weatherData) {
+        // Update DOM elements with current weather data
+        
+        const condition = weatherData.condition;
 
-        // Clear previous hourly weather container
-        hourly_weather_container.innerHTML = "";
+        this.currentWeather.querySelector('.location .value').textContent = `${location.name}, ${location.country}`;
+        this.currentWeather.querySelector('.localdate').textContent = formatDateTime(location.localtime)[0];
+        this.currentWeather.querySelector('.temp_hour .hour').textContent = formatDateTime(location.localtime)[1];
+        this.currentWeather.querySelector('.temp_hour .temp').textContent = `${parseInt(weatherData.temp_c)}°`;
+        this.currentWeather.querySelector('.condition').textContent = condition.text;
+        this.currentWeather.querySelector('.cloud_icon img').src = condition.icon;
+        this.currentWeather.querySelector('.humidity .value').textContent = `${weatherData.humidity}%`;
+        this.currentWeather.querySelector('.wind .value').textContent = `${weatherData.wind_mph}mph`;
+    }
 
-        // Iterate through hourly weather data and populate the container
-        for (const item of hourly_weather) {
-            const weather_item = hourly_weather_template.content.cloneNode(true);
-            weather_item.querySelector('.time').innerHTML = item.time.slice(-5);
-            weather_item.querySelector('.cloud_icon img').src = item.condition.icon;
-            weather_item.querySelector('.temperature').innerHTML = `${item.temp_c}°C`;
-            hourly_weather_container.appendChild(weather_item);
+    updateHourlyWeather(hourlyWeatherData) {
+        this.hourlyWeatherContainer.innerHTML = '';
+
+        for (const item of hourlyWeatherData) {
+            const weatherItem = this.hourlyWeatherTemplate.content.cloneNode(true);
+
+            // Update weather item DOM elements
+            weatherItem.querySelector('.time').innerHTML = item.time.slice(-5);
+            weatherItem.querySelector('.cloud_icon img').src = item.condition.icon;
+            weatherItem.querySelector('.temperature').innerHTML = `${item.temp_c}°C`;
+
+            this.hourlyWeatherContainer.appendChild(weatherItem);
         }
+    }
 
-    })
-    .catch(error => {
-        console.error(error); // Log any errors that occur during the API request
-    });
+    // formatDateTime(dateTime) {
+    //     // Implement your datetime formatting logic here
+    // }
 }
 
-//getCurrentInfos();  Call the function to fetch and display weather information
+const apiKey = 'f9de0c04c1bc48c2a6485330230408';
+const weatherApp = new WeatherApp(apiKey);
 
-
-const change_location_form = document.getElementById('change_location_form');
-
-change_location_form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const location = change_location_form.querySelector('input').value;
-    getCurrentInfos(location)
-})
-
-const close_change_location_modal = document.querySelector('.close_location_modal'),
-change_location_modal = document.querySelector('.change_location_modal');
-
-close_change_location_modal.addEventListener('click', () => {
-    change_location_modal.style.display = "none";
-})
-
+// Call the fetchWeatherData method to get weather information
+weatherApp.fetchWeatherData('Bukavu');
 
 
 
