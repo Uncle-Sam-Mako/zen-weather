@@ -442,6 +442,7 @@ body {
 
 /*---------No intenet section --------*/
 .no_internet_page {
+    visibility: hidden;
     @include lightStyle;
     position: absolute;
     top: 0;

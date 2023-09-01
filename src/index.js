@@ -52,7 +52,7 @@ class WeatherApp {
 
     updateCurrentWeather(location, weatherData) {
         // Update DOM elements with current weather data
-        
+
         const condition = weatherData.condition;
 
         this.currentWeather.querySelector('.location .value').textContent = `${location.name}, ${location.country}`;
@@ -79,6 +79,20 @@ class WeatherApp {
             this.hourlyWeatherContainer.appendChild(weatherItem);
         }
     }
+
+    changeWeatherLocation(location) {
+        if (!('locations' in localStorage)) {
+          localStorage.locations = JSON.stringify([location]);
+        } else {
+          let locationsArray = JSON.parse(localStorage.locations);
+          
+          if (!locationsArray.includes(location)) {
+            locationsArray.push(location);
+            localStorage.locations = JSON.stringify(locationsArray);
+          }
+        }
+      }
+      
 }
 
 const apiKey = 'f9de0c04c1bc48c2a6485330230408';
@@ -88,13 +102,13 @@ const weatherApp = new WeatherApp(apiKey);
 //weatherApp.fetchWeatherData('Brazzaville');
 
 
-// const change_location_form = document.getElementById('change_location_form');
+const change_location_form = document.getElementById('change_location_form');
 
-// change_location_form.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const location = change_location_form.querySelector('input').value;
-//     getCurrentInfos(location)
-// })
+change_location_form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const location = change_location_form.querySelector('input').value;
+    weatherApp.changeWeatherLocation(location)
+})
 
 
 
@@ -123,7 +137,7 @@ lightDarkBtn.checked = localStorage.theme === 'dark';
 lightDarkBtn.addEventListener('change', () => {
     // Toggle between light and dark themes
     const newTheme = lightDarkBtn.checked ? 'dark' : 'light';
-    
+
     // Update the theme attribute and store the new theme setting in local storage
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.theme = newTheme;
