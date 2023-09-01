@@ -85,7 +85,7 @@ const apiKey = 'f9de0c04c1bc48c2a6485330230408';
 const weatherApp = new WeatherApp(apiKey);
 
 // Call the fetchWeatherData method to get weather information
-weatherApp.fetchWeatherData('Brazzaville');
+//weatherApp.fetchWeatherData('Brazzaville');
 
 
 // const change_location_form = document.getElementById('change_location_form');

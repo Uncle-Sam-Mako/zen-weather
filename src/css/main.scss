@@ -6,7 +6,7 @@
 /*----Set color theme------*/
 
 //Light Mode
-html[data-theme="light"] {
+html {
 
     .weather_card {
         @include lightStyle;
@@ -38,6 +38,9 @@ html[data-theme="dark"] {
     }
     .change_location_modal {
         background: rgba( 16, 19, 29, 0.7 );
+    }
+    .no_internet_page{
+        @include darkStyle;
     }
 }
 
@@ -219,7 +222,7 @@ body {
         min-width: 34px;
         outline: 0;
         width: 34px;
-        z-index: 1;
+        z-index: 9;
     
         &:has(#dark_toggle:checked) {
             #knob {
@@ -246,7 +249,6 @@ body {
             top: 2px;
             transition: background-color linear 80ms;
             width: 28px;
-            z-index: 0;
         }
         #dark_toggle {
             position: absolute;
@@ -339,7 +341,7 @@ body {
     height: 90%;
     padding-top: 30px;
     transform: translateX(5%);
-    z-index: 199;
+    z-index: 999;
 
     .close_location_modal {
         @include closeBtn;
@@ -362,7 +364,7 @@ body {
 
         .map_icon {
             width: 13px;
-            z-index: 100;
+            z-index: 9;
             position: absolute;
             left: 10px;
             top: 25%;
@@ -436,6 +438,40 @@ body {
         }
     }
 }
+
+
+/*---------No intenet section --------*/
+.no_internet_page {
+    @include lightStyle;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+    .no_internet_text {
+        text-align: center;
+        line-height: .5em;
+
+        h4 {
+            font-size: large;
+        }
+    }
+
+    .no_internet_icon {
+        svg {
+            fill: #b93a3a;
+        }
+    }
+
+}
+
+
 
 /* ------Scrollbar stylizing------- */
 
