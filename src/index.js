@@ -111,7 +111,13 @@ change_location_form.addEventListener('submit', (e) => {
 })
 
 
-
+document.addEventListener('click', function(event) {
+    var menu = document.querySelector('.menu');
+    if (!menu.contains(event.target)) {
+        // Cacher le menu ici
+        menu.style.display = 'none';
+    }
+});
 
 
 
