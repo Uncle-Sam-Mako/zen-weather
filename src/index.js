@@ -116,7 +116,7 @@ document.addEventListener('click', function(event) {
     const menuBtn = document.querySelector('.menu_btn_container');
     if (!menu.contains(event.target) && (!menuBtn.contains(event.target))){
         // Cacher le menu ici
-        menu.style.display = 'none';
+        menuBtn.querySelector("#menu_check").checked = false;
     }
 });
 
