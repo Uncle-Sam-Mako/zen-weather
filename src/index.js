@@ -44,7 +44,7 @@ class WeatherApp {
                 const data = response.data;
                 this.updateCurrentWeather(data.location, data.current);
                 this.updateHourlyWeather(data.forecast.forecastday[0].hour);
-                this.changeWeatherLocation(location)
+                this.changeWeatherLocation(data.location)
             })
             .catch(error => {
                 console.error(error);
@@ -82,7 +82,7 @@ class WeatherApp {
     }
 
     changeWeatherLocation(location) {
-        let location_data = {"id": "01", "city": location, "country": "RDC", "active": true};
+        let location_data = {"id": (location.lat + location.lon), "city": location.name, "country": location.country, "active": true};
 
         if (!('locations' in localStorage)) {
           localStorage.locations = JSON.stringify([location_data]);
@@ -137,7 +137,7 @@ const change_location_form = document.getElementById('change_location_form');
 change_location_form.addEventListener('submit', (e) => {
     e.preventDefault();
     const location = change_location_form.querySelector('input').value;
-    weatherApp.changeWeatherLocation(location)
+    weatherApp.fetchWeatherData(location)
 })
 
 
