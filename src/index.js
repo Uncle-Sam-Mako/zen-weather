@@ -44,6 +44,7 @@ class WeatherApp {
                 const data = response.data;
                 this.updateCurrentWeather(data.location, data.current);
                 this.updateHourlyWeather(data.forecast.forecastday[0].hour);
+                this.changeWeatherLocation(location)
             })
             .catch(error => {
                 console.error(error);
@@ -81,17 +82,46 @@ class WeatherApp {
     }
 
     changeWeatherLocation(location) {
+        let location_data = {"id": "01", "city": location, "country": "RDC", "active": true};
+
         if (!('locations' in localStorage)) {
-          localStorage.locations = JSON.stringify([location]);
+          localStorage.locations = JSON.stringify([location_data]);
         } else {
           let locationsArray = JSON.parse(localStorage.locations);
           
-          if (!locationsArray.includes(location)) {
-            locationsArray.push(location);
+          if (!locationsArray.includes(location_data)) {
+            locationsArray.push(location_data);
             localStorage.locations = JSON.stringify(locationsArray);
           }
         }
-      }
+    }
+
+    fillSavedLocation() {
+        const saved_location_list = document.querySelector('.saved_location_list');
+        if (!('locations' in localStorage)) {
+            saved_location_list.innerHTML = `<p class="no_location_saved_text">Saved locations will be displayed here</p>`;
+        } else {
+
+            saved_location_list.innerHTML = "";
+
+            const saved_locations_array = JSON.parse(localStorage.locations);;
+
+            saved_locations_array.forEach((elt) => {
+                const location_elt = 
+                `<li class="location_item">
+                    <label class="location_infos" for=${elt.city}>
+                        <span class="location_town">${elt.city}</span>
+                        <span class="location_country">${elt.country}</span>
+                        <input type="radio" name="location" id=${elt.city}>
+                    </label>
+                    <button class="delete_location">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg>
+                    </button>
+                </li>`;
+                saved_location_list.innerHTML += location_elt;
+            })
+        }
+    }
       
 }
 
@@ -100,7 +130,7 @@ const weatherApp = new WeatherApp(apiKey);
 
 // Call the fetchWeatherData method to get weather information
 //weatherApp.fetchWeatherData('Brazzaville');
-
+weatherApp.fillSavedLocation()
 
 const change_location_form = document.getElementById('change_location_form');
 
