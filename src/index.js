@@ -90,11 +90,11 @@ class WeatherApp {
             let locationsArray = JSON.parse(localStorage.locations);
           
             if(!locationsArray.some(location => location.id === location_data.id)) {
-                if(locationsArray.length < 3){
+                if(locationsArray.length < 5){
                     locationsArray.push(location_data);
                     localStorage.locations = JSON.stringify(locationsArray);
                 } else {
-                    alert("You can save only 3 locations")
+                    alert("You can save only 5 locations")
                 }
             }
         }

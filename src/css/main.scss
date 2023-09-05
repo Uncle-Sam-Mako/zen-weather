@@ -387,6 +387,11 @@ body {
     .saved_location_title {
         padding: 5px 15px;
     }
+
+    .saved_location_list {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
     
     .saved_location_list li {
         display: flex;
