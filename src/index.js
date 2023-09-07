@@ -131,30 +131,22 @@ class WeatherApp {
 
     bindLocationChangeEvent() {
         const locationRadios = document.querySelectorAll('input[name="location"]');
+        const savedLocations = JSON.parse(localStorage.locations);
         locationRadios.forEach(radio => {
             radio.addEventListener('change', (event) => {
                 const selectedLocationId = event.target.id;
-                let locationsArray = JSON.parse(localStorage.locations);
-    
-                // Mettez à jour la propriété active pour tous les emplacements
-                locationsArray.forEach(location => {
+
+                savedLocations.forEach(location => {
                     location.active = location.id === selectedLocationId;
                 });
-    
-                // Enregistrez les mises à jour dans le localStorage
-                localStorage.locations = JSON.stringify(locationsArray);
-    
-                // Mettez à jour l'affichage de la météo avec le nouvel emplacement sélectionné
-                this.fetchWeatherData(selectedLocationId);
+                const selectedLocation = savedLocations.find(location => location.id === selectedLocationId);   
+
+                localStorage.locations = JSON.stringify(savedLocations);
+
+                this.fetchWeatherData(selectedLocation.city);
             });
         });
     }
-    
-    
-    
-    
-    
-    
       
 }
 
