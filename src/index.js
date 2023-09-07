@@ -82,15 +82,15 @@ class WeatherApp {
     }
 
     changeWeatherLocation(location) {
-        let location_data = {"id": ("" + location.lat + "_" + location.lon), "city": location.name, "country": location.country, "active": true};
+        let location_data = { "id": ("" + location.lat + "_" + location.lon), "city": location.name, "country": location.country, "active": true };
 
         if (!('locations' in localStorage)) {
-          localStorage.locations = JSON.stringify([location_data]);
+            localStorage.locations = JSON.stringify([location_data]);
         } else {
             let locationsArray = JSON.parse(localStorage.locations);
-          
-            if(!locationsArray.some(location => location.id === location_data.id)) {
-                if(locationsArray.length < 5){
+
+            if (!locationsArray.some(location => location.id === location_data.id)) {
+                if (locationsArray.length < 5) {
                     locationsArray.push(location_data);
                     localStorage.locations = JSON.stringify(locationsArray);
                 } else {
@@ -111,8 +111,8 @@ class WeatherApp {
             const saved_locations_array = JSON.parse(localStorage.locations);;
 
             saved_locations_array.forEach((location) => {
-                const location_elt = 
-                `<li class="location_item">
+                const location_elt =
+                    `<li class="location_item">
                     <label class="location_infos" for=${location.id}>
                         <span class="location_town">${location.city}</span>
                         <span class="location_country">${location.country}</span>
@@ -134,12 +134,27 @@ class WeatherApp {
         locationRadios.forEach(radio => {
             radio.addEventListener('change', (event) => {
                 const selectedLocationId = event.target.id;
-                const selectedLocation = JSON.parse(localStorage.locations).find(location => location.id === selectedLocationId);
-                console.log(selectedLocation)
-                this.fetchWeatherData(selectedLocation.city);
+                let locationsArray = JSON.parse(localStorage.locations);
+    
+                // Mettez à jour la propriété active pour tous les emplacements
+                locationsArray.forEach(location => {
+                    location.active = location.id === selectedLocationId;
+                });
+    
+                // Enregistrez les mises à jour dans le localStorage
+                localStorage.locations = JSON.stringify(locationsArray);
+    
+                // Mettez à jour l'affichage de la météo avec le nouvel emplacement sélectionné
+                this.fetchWeatherData(selectedLocationId);
             });
         });
     }
+    
+    
+    
+    
+    
+    
       
 }
 
