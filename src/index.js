@@ -125,6 +125,20 @@ class WeatherApp {
                 saved_location_list.innerHTML += location_elt;
             })
         }
+
+        this.bindLocationChangeEvent();
+    }
+
+    bindLocationChangeEvent() {
+        const locationRadios = document.querySelectorAll('input[name="location"]');
+        locationRadios.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                const selectedLocationId = event.target.id;
+                const selectedLocation = JSON.parse(localStorage.locations).find(location => location.id === selectedLocationId);
+                console.log(selectedLocation)
+                this.fetchWeatherData(selectedLocation.city);
+            });
+        });
     }
       
 }
