@@ -147,6 +147,19 @@ class WeatherApp {
             });
         });
     }
+
+    startWeatherApp() {
+        
+        if ('locations' in localStorage) {
+            const locationsArray = JSON.parse(localStorage.locations);
+
+            const activeLocation = locationsArray.find(location => location.active);
+
+            if (activeLocation) {
+                this.fetchWeatherData(activeLocation.city);
+            }
+        }
+    }
       
 }
 
@@ -155,7 +168,18 @@ const weatherApp = new WeatherApp(apiKey);
 
 // Call the fetchWeatherData method to get weather information
 //weatherApp.fetchWeatherData('Brazzaville');
-weatherApp.fillSavedLocationInDOM()
+
+
+window.addEventListener('load', () => {
+    weatherApp.startWeatherApp();
+    weatherApp.fillSavedLocationInDOM();
+});
+
+
+
+
+
+
 
 const change_location_form = document.getElementById('change_location_form');
 
