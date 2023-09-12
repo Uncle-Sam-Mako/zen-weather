@@ -44,7 +44,8 @@ class WeatherApp {
                 const data = response.data;
                 this.updateCurrentWeather(data.location, data.current);
                 this.updateHourlyWeather(data.forecast.forecastday[0].hour);
-                this.changeWeatherLocation(data.location)
+                this.changeWeatherLocation(data.location);
+                this.fillSavedLocationInDOM()
             })
             .catch(error => {
                 console.error(error);
@@ -150,15 +151,14 @@ class WeatherApp {
 
     startWeatherApp() {
         
+        let activeLocation = {"city" : "Kinshasa"};
+
         if ('locations' in localStorage) {
             const locationsArray = JSON.parse(localStorage.locations);
-
-            const activeLocation = locationsArray.find(location => location.active);
-
-            if (activeLocation) {
-                this.fetchWeatherData(activeLocation.city);
-            }
+            activeLocation = locationsArray.find(location => location.active);
         }
+
+        this.fetchWeatherData(activeLocation.city)
     }
       
 }
