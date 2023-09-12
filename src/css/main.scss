@@ -457,7 +457,7 @@ body {
     @include lightStyle;
     @include fullPageAbsolute;
 
-    .loader {
+    .spinner {
         width: 48px;
         height: 48px;
         border: 5px dotted var(--main-text-color);

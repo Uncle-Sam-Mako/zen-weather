@@ -36,7 +36,22 @@ class WeatherApp {
         this.hourlyWeatherTemplate = document.querySelector('.weather_item_template');
     }
 
+
+    showLoader() {
+        const loader = document.getElementById('loader');
+        loader.style.display = 'flex';
+    }
+
+    hideLoader() {
+        const loader = document.getElementById('loader');
+        loader.style.display = 'none';
+    }
+
+
     fetchWeatherData(location) {
+
+        this.showLoader();
+
         const url = `${this.forecastUrl}?key=${this.apiKey}&q=${location}&days=1&aqi=no&alerts=no`;
 
         axios.get(url)
@@ -49,6 +64,9 @@ class WeatherApp {
             })
             .catch(error => {
                 console.error(error);
+            })
+            .finally(() => {
+                this.hideLoader();  // Masque le loader, que la requête soit réussie ou non
             });
     }
 
