@@ -403,7 +403,7 @@ body {
         &:hover {
             background: var(--hover-color);
         }
-        &:has(input:checked) {
+        &:has(input[checked=true]) {
             background: var(--hover-color);
 
             button.delete_location {

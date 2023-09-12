@@ -83,7 +83,7 @@ class WeatherApp {
     }
 
     changeWeatherLocation(location) {
-        let location_data = { "id": ("" + location.lat + "_" + location.lon), "city": location.name, "country": location.country, "active": true };
+        let location_data = { "id": ("" + location.lat + "_" + location.lon), "city": location.name, "country": location.country, "isActive": localStorage.locations ? false : true };
 
         if (!('locations' in localStorage)) {
             localStorage.locations = JSON.stringify([location_data]);
@@ -117,7 +117,7 @@ class WeatherApp {
                     <label class="location_infos" for=${location.id}>
                         <span class="location_town">${location.city}</span>
                         <span class="location_country">${location.country}</span>
-                        <input type="radio" name="location" id=${location.id}>
+                        <input type="radio" checked=${location.isActive} name="location" id=${location.id}>
                     </label>
                     <button class="delete_location" data-location_id=${location.id}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg>
@@ -138,7 +138,7 @@ class WeatherApp {
                 const selectedLocationId = event.target.id;
 
                 savedLocations.forEach(location => {
-                    location.active = location.id === selectedLocationId;
+                    location.isActive = location.id === selectedLocationId;
                 });
                 const selectedLocation = savedLocations.find(location => location.id === selectedLocationId);   
 
@@ -155,7 +155,7 @@ class WeatherApp {
 
         if ('locations' in localStorage) {
             const locationsArray = JSON.parse(localStorage.locations);
-            activeLocation = locationsArray.find(location => location.active);
+            activeLocation = locationsArray.find(location => location.isActive);
         }
 
         this.fetchWeatherData(activeLocation.city)
