@@ -1,5 +1,6 @@
 import "./css/main.scss"; // Import the main SCSS file for styling
 import "./js/locationModal"
+import "./js/userOffline"
 import axios from 'axios'; // Import the Axios library for making HTTP requests
 
 
@@ -180,6 +181,8 @@ class WeatherApp {
     }
       
 }
+
+
 
 const apiKey = 'f9de0c04c1bc48c2a6485330230408';
 const weatherApp = new WeatherApp(apiKey);
