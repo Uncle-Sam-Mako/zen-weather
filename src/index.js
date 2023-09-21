@@ -1,6 +1,6 @@
 import "./css/main.scss"; // Import the main SCSS file for styling
-import "./js/locationModal"
-import "./js/userOffline"
+import "./js/locationModal";
+import config from "./js/config";
 import axios from 'axios'; // Import the Axios library for making HTTP requests
 
 
@@ -187,7 +187,7 @@ class WeatherApp {
 
 
 
-const apiKey = 'f9de0c04c1bc48c2a6485330230408';
+const apiKey = config.API_KEY;
 const weatherApp = new WeatherApp(apiKey);
 
 // Call the fetchWeatherData method to get weather information
@@ -252,42 +252,3 @@ lightDarkBtn.addEventListener('change', () => {
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.theme = newTheme;
 });
-
-// function isOnline() {
-//     return navigator.onLine;
-// }
-
-// function showOfflineMessage() {
-//     const offlineMessage = document.querySelector('.no_internet_page');
-//     offlineMessage.style.display = 'flex';
-// }
-
-// function hideOfflineMessage() {
-//     const offlineMessage = document.querySelector('.no_internet_page');
-//     offlineMessage.style.display = 'none';
-// }
-
-// // Vérifiez la connectivité au chargement de la page
-// if (!isOnline()) {
-//     showOfflineMessage();
-//     return
-// }
-
-// // Ajoutez un gestionnaire d'événements pour surveiller les changements de la connectivité
-// window.addEventListener('online', hideOfflineMessage);
-// window.addEventListener('offline', showOfflineMessage);
-
-// const status = document.querySelector('.status');
-// window.addEventListener('load', () => {
-//     console.log(navigator.onLine)
-//   const handleNetworkChange = () => {
-//     if (navigator.onLine) {
-//       console.log('online');
-//     } else {
-//         console.log('offline');
-//     }
-//   };
-
-//   window.addEventListener('online', handleNetworkChange);
-//   window.addEventListener('offline', handleNetworkChange);
-// });
